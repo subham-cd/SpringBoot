@@ -10,12 +10,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.websocket.server.PathParam;
 
 @RestController
+@RequestMapping("/api/v1/todos")
 public class TodoController {
 
     private static List<Todo> todolist ;
@@ -27,12 +29,14 @@ public class TodoController {
     }
 
 
-      @GetMapping("/todos")
+    //   @GetMapping("/todos")
+      @GetMapping("/")
     public ResponseEntity<List<Todo>> getTodos(){
         // return ResponseEntity.ok(todolist);
         return ResponseEntity.status(HttpStatus.OK).body(todolist);
     }
-    @PostMapping("/todos")
+    // @PostMapping("/todos")
+    @PostMapping("/")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Todo> createTodo(@RequestBody Todo newTodo){
           todolist.add(newTodo);
@@ -40,7 +44,8 @@ public class TodoController {
         return ResponseEntity.status(HttpStatus.CREATED).body(newTodo);
        
     }
-    @GetMapping("/todos/{todoId}")
+    @GetMapping("/{todoId}")
+    // @GetMapping("/todos/{todoId}")
     // public ResponseEntity<Todo> getTodoById(@PathVariable long todoId){
      public ResponseEntity<?> getTodoById(@PathVariable long todoId){
         for(Todo todo:todolist){
